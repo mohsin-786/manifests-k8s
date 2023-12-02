@@ -32,20 +32,3 @@ spec:
     port: 80
     targetPort: 8080
 
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: tesla-clone-ingress
-spec:
-  rules:
-  - host: tesla-clone.com
-    http:
-      paths:
-      - pathType: Prefix
-        path: "/"
-        backend:
-          service:
-            name: tesla-clone-service
-            port:
-              number: 80
