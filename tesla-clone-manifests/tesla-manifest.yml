@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: tesla-clone
-        image: tesla-clone:21
+        image: mohsin01/tesla-clone:21
         ports:
         - containerPort: 9005
 
