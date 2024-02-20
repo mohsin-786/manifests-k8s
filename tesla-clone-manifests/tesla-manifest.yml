@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: tesla
-        image: tesla
+        image: 
         ports:
         - containerPort: 9005
 
