@@ -32,7 +32,7 @@ metadata:
   name: tesla-service
   namespace: sinwa
 spec:
-  type: NodePort
+  type: LoadBalancer
   ports:
   - port: 80
     targetPort: 9005
