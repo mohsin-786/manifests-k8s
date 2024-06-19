@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: tesla
-        image: mohsin01/tesla-clone:25
+        image: 381492262499.dkr.ecr.us-east-1.amazonaws.com/my-repo:latest
         ports:
         - containerPort: 9005
 
