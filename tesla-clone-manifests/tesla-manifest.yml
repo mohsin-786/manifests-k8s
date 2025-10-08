@@ -3,63 +3,98 @@
 # metadata: 
 #   name: sinwa
 
----
+# ---
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: tesla-deployment
+#   namespace: sinwa
+# spec:
+#   replicas: 3
+#   selector:
+#     matchLabels:
+#       app: tesla
+#   template:
+#     metadata:
+#       labels:
+#         app: tesla
+#     spec:
+#       containers:
+#       - name: tesla
+#         image: mohsin01/tesla-clone:25
+#         ports:
+#         - containerPort: 9005
+
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: tesla-service
+#   namespace: sinwa
+# spec:
+#   type: LoadBalancer
+#   ports:
+#   - port: 80
+#     targetPort: 9005
+#   selector:
+#     app: tesla
+
+# ---
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: tesla-ingress
+#   namespace: sinwa
+#   annotations:
+#     kubernetes.io/ingress.class: alb
+#     alb.ingress.kubernetes.io/scheme: internet-facing
+#     alb.ingress.kubernetes.io/target-type: ip
+# spec:
+#   ingressClassName: alb
+#   rules:
+#   - http:
+#       paths:
+#       - path: /
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: tesla-service
+#             port:
+#               number: 80
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tesla-deployment
+  name: nginx-deployment
   namespace: sinwa
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: tesla
+      app: nginx
   template:
     metadata:
       labels:
-        app: tesla
+        app: nginx
     spec:
       containers:
-      - name: tesla
-        image: mohsin01/tesla-clone:25
+      - name: nginx
+        image: nginx:latest
         ports:
-        - containerPort: 9005
+        - containerPort: 80
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: tesla-service
+  name: nginx-service
   namespace: sinwa
 spec:
-  type: LoadBalancer
+  type: ClusterIP
+  selector:
+    app: nginx
   ports:
   - port: 80
-    targetPort: 9005
-  selector:
-    app: tesla
-
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: tesla-ingress
-  namespace: sinwa
-  annotations:
-    kubernetes.io/ingress.class: alb
-    alb.ingress.kubernetes.io/scheme: internet-facing
-    alb.ingress.kubernetes.io/target-type: ip
-spec:
-  ingressClassName: alb
-  rules:
-  - http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: tesla-service
-            port:
-              number: 80
+    targetPort: 80
 
 
